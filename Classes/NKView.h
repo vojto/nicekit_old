@@ -6,13 +6,20 @@
 //
 //
 
-#import "NKStyle.h"
+#import "NiceKit.h"
+@class NKStyle;
 
 @interface NKView : NSView
 
 @property (nonatomic, strong) NKStyle *style;
 
 @property (assign) NSTrackingRectTag nk_trackingTag;
+
+#pragma mark - Setup
+
+- (void)setupStyle;
+
+#pragma mark - Mouse setup
 
 - (void)nk_trackMouseMove;
 - (void)nk_trackMouseEnterExit;

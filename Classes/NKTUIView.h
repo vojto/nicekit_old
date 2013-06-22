@@ -6,6 +6,8 @@
 //
 //
 
+#ifdef TUIView
+
 #import "TUIView.h"
 
 @interface NKTUIView : TUIView
@@ -17,3 +19,5 @@
 - (void)nk_drawGradientStartColor:(NSString *)startColor endColor:(NSString *)endColor;
 
 @end
+
+#endif

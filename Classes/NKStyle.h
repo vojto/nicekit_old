@@ -6,6 +6,7 @@
 //
 //
 
+#import "NiceKit.h"
 #import "NKColor.h"
 #import "NKColorGroup.h"
 

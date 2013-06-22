@@ -7,14 +7,23 @@
 //
 
 #import "NKView.h"
+#import "NKStyle.h"
 
 @implementation NKView
 
 - (id)initWithFrame:(NSRect)frameRect {
     if ((self = [super initWithFrame:frameRect])) {
         self.style = [[NKStyle alloc] initWithFrame:self.bounds];
+        if ([self respondsToSelector:@selector(setupStyle)]) {
+            [self setupStyle];
+        }
     }
     return self;
+}
+
+- (void)setFrame:(NSRect)frameRect {
+    [super setFrame:frameRect];
+    self.style.frame = self.bounds;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {

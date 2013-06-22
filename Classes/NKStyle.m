@@ -6,6 +6,7 @@
 //
 //
 
+#import <BlocksKit/BlocksKit.h>
 #import "NKStyle.h"
 #import "NKShadow.h"
 #import "NKColorGroup.h"

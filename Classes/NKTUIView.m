@@ -6,6 +6,8 @@
 //
 //
 
+#ifdef TUIView
+
 #import "NKTUIView.h"
 
 @implementation NKTUIView
@@ -30,3 +32,6 @@
 }
 
 @end
+
+
+#endif

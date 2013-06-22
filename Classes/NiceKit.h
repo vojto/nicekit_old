@@ -16,3 +16,4 @@ typedef NSString* NKBorderSide;
 #import "NKHelpers.h"
 #import "NSColor+Hex.h"
 #import "NKView.h"
+#import "NKStyle.h"
