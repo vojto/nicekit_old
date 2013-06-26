@@ -6,8 +6,9 @@
 //
 //
 
-#ifdef TUIView
+#ifdef NK_USING_TUI
 
+#import "NiceKit.h"
 #import "NKTUIView.h"
 
 @implementation NKTUIView

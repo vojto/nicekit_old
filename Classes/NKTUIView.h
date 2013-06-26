@@ -6,7 +6,7 @@
 //
 //
 
-#ifdef TUIView
+#ifdef NK_USING_TUI
 
 #import "TUIView.h"
 
