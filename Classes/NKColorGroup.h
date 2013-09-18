@@ -11,8 +11,10 @@
 @interface NKColorGroup : NSObject
 
 + (id)groupWithColors:(NSArray *)colors;
++ (id)groupWithHexColors:(NSArray *)colors;
 
 - (id)initWithColors:(NSArray *)colors;
+- (id)initWithHexColors:(NSArray *)colors;
 
 - (id)objectAtIndexedSubscript:(NSInteger)index;
 

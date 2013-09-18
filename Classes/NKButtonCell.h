@@ -6,8 +6,15 @@
 //
 //
 
-#import <Cocoa/Cocoa.h>
+#import "NKStyle.h"
+#import "NKColorGroup.h"
 
 @interface NKButtonCell : NSButtonCell
+
+@property (strong) NKColorGroup *defaultColors;
+@property (strong) NKColorGroup *activeColors;
+@property (strong) NKColorGroup *disabledColors;
+@property (assign) NKColor *borderColor;
+@property (assign) CGFloat borderRadius;
 
 @end

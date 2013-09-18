@@ -51,6 +51,10 @@ NSString *const kNKBorderAll = @"all";
     [self.borderColors setObject:color forKey:side];
 }
 
+- (NKColor *)borderColorForSide:(NKBorderSide)side {
+    return self.borderColors[side];
+}
+
 - (void)setBorderRadius:(CGFloat)borderRadius {
     [self setBorderRadius:borderRadius forSide:kNKBorderAll];
 }

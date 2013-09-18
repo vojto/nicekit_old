@@ -25,6 +25,7 @@
 - (void)setBorderRadius:(CGFloat)borderRadius forSide:(NKBorderSide)side;
 - (void)setBorderWidth:(CGFloat)width forSide:(NKBorderSide)side;
 - (void)setBorderColor:(NKColor *)color forSide:(NKBorderSide)side;
+- (NKColor *)borderColorForSide:(NKBorderSide)side;
 
 // Shadow
 - (void)addShadow:(CGSize)offset blurRadius:(CGFloat)blurRadius color:(NKColor *)color;
