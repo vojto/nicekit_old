@@ -17,5 +17,6 @@
 - (CGSize)size;
 
 - (void)drawInFrame:(NSRect)frame color:(NSColor *)color;
+- (void)drawInFrame:(NSRect)frame color:(NSColor *)color preserveRatio:(BOOL)shouldPreserveRatio;
 
 @end

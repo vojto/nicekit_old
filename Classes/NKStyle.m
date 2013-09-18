@@ -21,6 +21,7 @@ NSString *const kNKBorderAll = @"all";
 
 @property (nonatomic, strong) NSMutableDictionary *borderColors;
 @property (nonatomic, strong) NSMutableDictionary *borderWidths;
+@property (nonatomic, nonatomic, strong) NSMutableDictionary *borderRadiuses;
 @property (nonatomic, strong) NSMutableArray *shadows;
 @property (readonly) CGPathRef path;
 
@@ -34,6 +35,7 @@ NSString *const kNKBorderAll = @"all";
         self.borderRadius = 0;
         self.borderColors = [NSMutableDictionary dictionary];
         self.borderWidths = [NSMutableDictionary dictionary];
+        self.borderRadiuses = [NSMutableDictionary dictionary];
         self.shadows = [NSMutableArray array];
     }
     return self;
@@ -47,6 +49,14 @@ NSString *const kNKBorderAll = @"all";
 
 - (void)setBorderColor:(NKColor *)color forSide:(NKBorderSide)side {
     [self.borderColors setObject:color forKey:side];
+}
+
+- (void)setBorderRadius:(CGFloat)borderRadius {
+    [self setBorderRadius:borderRadius forSide:kNKBorderAll];
+}
+
+- (void)setBorderRadius:(CGFloat)borderRadius forSide:(NKBorderSide)side {
+    [self.borderRadiuses setObject:@(borderRadius) forKey:side];
 }
 
 - (void)addShadow:(CGSize)offset blurRadius:(CGFloat)blurRadius color:(NKColor *)color {
@@ -225,23 +235,41 @@ NSString *const kNKBorderAll = @"all";
 #pragma mark - Paths
 
 - (CGPathRef)path {
-    return [self roundedRectPath:self.frame radius:self.borderRadius];
+    return [self roundedRectPath:self.frame];
 }
 
 - (CGPathRef)borderPath {
     CGRect drawingRect = CGRectInset(self.frame, .5, .5);
-    return [self roundedRectPath:drawingRect radius:self.borderRadius];
+    return [self roundedRectPath:drawingRect];
 }
 
-- (CGPathRef)roundedRectPath:(CGRect)rect radius:(CGFloat)radius {
+- (CGPathRef)roundedRectPath:(CGRect)rect {
+//    CGFloat radius1 = [self borderRadiusForSide:kNKBorderLeft];
+    CGFloat radius = 0;
+    CGFloat radius1 = [self borderRadiusForSide:kNKBorderRight];
+    CGFloat radius2 = [self borderRadiusForSide:kNKBorderBottom];
+    CGFloat radius3 = [self borderRadiusForSide:kNKBorderLeft];
+    CGFloat radius4 = [self borderRadiusForSide:kNKBorderTop];
+
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, CGRectGetMinX(rect) + radius, CGRectGetMinY(rect));
-    CGPathAddArc(path, NULL, CGRectGetMaxX(rect) - radius, CGRectGetMinY(rect) + radius, radius, 3 * M_PI / 2, 0, 0);
-    CGPathAddArc(path, NULL, CGRectGetMaxX(rect) - radius, CGRectGetMaxY(rect) - radius, radius, 0, M_PI / 2, 0);
-    CGPathAddArc(path, NULL, CGRectGetMinX(rect) + radius, CGRectGetMaxY(rect) - radius, radius, M_PI / 2, M_PI, 0);
-    CGPathAddArc(path, NULL, CGRectGetMinX(rect) + radius, CGRectGetMinY(rect) + radius, radius, M_PI, 3 * M_PI / 2, 0);
+    CGPathMoveToPoint(path, NULL, CGRectGetMinX(rect) + radius4, CGRectGetMinY(rect));
+    CGPathAddArc(path, NULL, CGRectGetMaxX(rect) - radius1, CGRectGetMinY(rect) + radius1, radius1, 3 * M_PI / 2, 0, 0);
+    CGPathAddArc(path, NULL, CGRectGetMaxX(rect) - radius2, CGRectGetMaxY(rect) - radius2, radius2, 0, M_PI / 2, 0);
+    CGPathAddArc(path, NULL, CGRectGetMinX(rect) + radius3, CGRectGetMaxY(rect) - radius3, radius3, M_PI / 2, M_PI, 0);
+    CGPathAddArc(path, NULL, CGRectGetMinX(rect) + radius4, CGRectGetMinY(rect) + radius4, radius4, M_PI, 3 * M_PI / 2, 0);
     CGPathCloseSubpath(path);
     return path;
+}
+
+- (CGFloat)borderRadiusForSide:(NKBorderSide)side {
+    // For side
+    if ([self.borderRadiuses objectForKey:side]) {
+        return [[self.borderRadiuses objectForKey:side] floatValue];
+    } else if ([self.borderRadiuses objectForKey:kNKBorderAll]) {
+        return [[self.borderRadiuses objectForKey:kNKBorderAll] floatValue];
+    } else {
+        return 0.0;
+    }
 }
 
 - (CGContextRef)context {

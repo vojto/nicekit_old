@@ -52,12 +52,60 @@
     self.graphicalCell.isAlternate = isAlternate;
 }
 
+- (BOOL)isFirstInGroup {
+    return self.graphicalCell.isFirstInGroup;
+}
+
+- (void)setIsFirstInGroup:(BOOL)isFirstInGroup {
+    self.graphicalCell.isFirstInGroup = isFirstInGroup;
+}
+
+- (BOOL)isLastInGroup {
+    return self.graphicalCell.isLastInGroup;
+}
+
+- (void)setIsLastInGroup:(BOOL)isLastInGroup {
+    self.graphicalCell.isLastInGroup = isLastInGroup;
+}
+
+- (BOOL)isBezeled {
+    return self.graphicalCell.isBezeled;
+}
+
+- (void)setIsBezeled:(BOOL)isBezeled {
+    self.graphicalCell.isBezeled = isBezeled;
+}
+
+- (BOOL)isSelected {
+    return self.graphicalCell.isSelected;
+}
+
+- (void)setIsSelected:(BOOL)isSelected {
+    self.graphicalCell.isSelected = isSelected;
+}
+
 - (CGSize)graphicsSize {
     return self.graphicalCell.graphicsSize;
 }
 
 - (void)setGraphicsSize:(CGSize)graphicsSize {
     self.graphicalCell.graphicsSize = graphicsSize;
+}
+
+- (CGSize)graphicsOffset {
+    return self.graphicalCell.graphicsOffset;
+}
+
+- (void)setGraphicsOffset:(CGSize)graphicsOffset {
+    self.graphicalCell.graphicsOffset = graphicsOffset;
+}
+
+- (NSShadow *)shadow {
+    return self.graphicalCell.shadow;
+}
+
+- (void)setShadow:(NSShadow *)shadow {
+    self.graphicalCell.shadow = shadow;
 }
 
 #pragma mark - Color

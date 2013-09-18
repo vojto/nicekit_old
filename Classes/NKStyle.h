@@ -21,7 +21,8 @@
 
 
 // Border
-@property (assign) CGFloat borderRadius;
+@property (nonatomic, assign) CGFloat borderRadius;
+- (void)setBorderRadius:(CGFloat)borderRadius forSide:(NKBorderSide)side;
 - (void)setBorderWidth:(CGFloat)width forSide:(NKBorderSide)side;
 - (void)setBorderColor:(NKColor *)color forSide:(NKBorderSide)side;
 

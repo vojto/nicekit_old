@@ -29,6 +29,7 @@
 - (void)awakeFromNib {
     [self setup];
     self.graphicsSize = CGSizeZero;
+    self.graphicsOffset = CGSizeZero;
 }
 
 - (void)setup {
@@ -39,15 +40,73 @@
     self.alternateHighligtColor = [NSColor colorWithHex:@"88858b"];
     self.graphics = [NKRightArrowGraphics graphics];
     self.isAlternate = NO;
+    self.isSelected = NO;
+    
+    self.style = [[NKStyle alloc] initWithFrame:CGRectZero];
+
+    self.shadow = [[NSShadow alloc] init];
+    self.shadow.shadowOffset = CGSizeMake(0, -1.0);
+    self.shadow.shadowBlurRadius = 0.0;
+    self.shadow.shadowColor = [NSColor whiteColor];
 }
 
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView {
+
+    // Button style
+    self.style.frame = NSInsetRect(frame, 0.0, 1.0);
+
+    if (self.isBezeled) {
+        if (self.isHighlighted) {
+            self.style.backgroundColors = [NKColorGroup groupWithColors:@[
+                                           [NKColor colorWithHex:@"f7f7f7"],
+                                           [NKColor colorWithHex:@"dddddd"]
+                                           ]];
+        } else if (self.isSelected) {
+            self.style.backgroundColors = [NKColorGroup groupWithColors:@[
+                                           [NKColor colorWithHex:@"fafafa"],
+                                           [NKColor colorWithHex:@"e3e3e3"]
+                                           ]];
+        } else {
+            self.style.backgroundColors = [NKColorGroup groupWithColors:@[
+                                           [NKColor colorWithHex:@"e3e3e3"],
+                                           [NKColor colorWithHex:@"fafafa"]
+                                           ]];
+        }
+        self.style.borderRadius = 3.0;
+        [self.style setBorderColor:[NKColor colorWithHex:@"c3c3c3"] forSide:kNKBorderAll];
+        [self.style setBorderWidth:1.0 forSide:kNKBorderAll];
+        [self.style addShadow:CGSizeMake(0.0, -1.0) blurRadius:0.0 color:[NKColor colorWithHex:@"fbfbfb"]];
+    }
+
+    if (self.isFirstInGroup) {
+        [self.style setBorderRadius:0.0 forSide:kNKBorderRight];
+        [self.style setBorderRadius:0.0 forSide:kNKBorderBottom];
+        [self.style setBorderRadius:3.0 forSide:kNKBorderLeft];
+        [self.style setBorderRadius:3.0 forSide:kNKBorderTop];
+//        self.style.backgroundColor = [NKColor colorWithHex:@"orange"];
+    }
+    if (self.isLastInGroup) {
+        [self.style setBorderRadius:3.0 forSide:kNKBorderRight];
+        [self.style setBorderRadius:3.0 forSide:kNKBorderBottom];
+        [self.style setBorderRadius:0.0 forSide:kNKBorderLeft];
+        [self.style setBorderRadius:0.0 forSide:kNKBorderTop];
+    }
+    [self.style draw];
+
+    // Button graphics
+
     NSBezierPath *bezierPath;
 
     if (!CGSizeEqualToSize(self.graphicsSize, CGSizeZero)) {
         bezierPath = [self.graphics fitBezierPathInFrame:CGRectMake(0, 0, self.graphicsSize.width, self.graphicsSize.height)];
     } else {
         bezierPath = [self.graphics fitBezierPathInFrame:frame];
+    }
+
+    if (!CGSizeEqualToSize(self.graphicsOffset, CGSizeZero)) {
+        NSAffineTransform *t = [NSAffineTransform transform];
+        [t translateXBy:self.graphicsOffset.width yBy:self.graphicsOffset.height];
+        [bezierPath transformUsingAffineTransform:t];
     }
 
     if (!self.isEnabled) {
@@ -62,11 +121,7 @@
         [self.color setFill];
     }
 
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(0, -1.0);
-    shadow.shadowBlurRadius = 0.0;
-    shadow.shadowColor = [NSColor whiteColor];
-    [shadow set];
+    [self.shadow set];
     [bezierPath fill];
 }
 

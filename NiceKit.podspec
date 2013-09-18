@@ -1,60 +1,11 @@
-#
-# Be sure to run `pod spec lint NiceKit.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# To learn more about the attributes see http://docs.cocoapods.org/specification.html
-#
 Pod::Spec.new do |s|
   s.name         = "NiceKit"
   s.version      = "0.0.1"
   s.summary      = "A short description of NiceKit."
-  # s.description  = <<-DESC
-  #                   An optional longer description of NiceKit
-  #
-  #                   * Markdown format.
-  #                   * Don't worry about the indent, we strip it!
-  #                  DESC
   s.homepage     = "http://rinik.net/NiceKit"
-  # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-
-  # Specify the license type. CocoaPods detects automatically the license file if it is named
-  # 'LICENCE*.*' or 'LICENSE*.*', however if the name is different, specify it.
-  # s.license      = 'MIT (example)'
-  # s.license      = { :type => 'MIT (example)', :file => 'FILE_LICENSE' }
-
-  # Specify the authors of the library, with email addresses. You can often find
-  # the email addresses of the authors by using the SCM log. E.g. $ git log
-  #
   s.author       = { "Vojtech Rinik" => "vojto@rinik.net" }
-  # s.authors      = { "Vojto Rinik" => "vojto@rinik.net", "other author" => "and email address" }
-  #
-  # If absolutely no email addresses are available, then you can use this form instead.
-  #
-  # s.author       = 'Vojto Rinik', 'other author'
-
-  # Specify the location from where the source should be retrieved.
-  #
   s.source       = { :git => "git@rinik.net:vojto/nicekit.git" }
-
-
-  # If this Pod runs only on iOS or OS X, then specify the platform and
-  # the deployment target.
-  #
-  # s.platform     = :ios, '5.0'
   s.platform = :osx
-
-  # ――― MULTI-PLATFORM VALUES ――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  # If this Pod runs on both platforms, then specify the deployment
-  # targets.
-  #
-  # s.ios.deployment_target = '5.0'
-  # s.osx.deployment_target = '10.7'
-
-  # A list of file patterns which select the source files that should be
-  # added to the Pods project. If the pattern is a directory then the
-  # path will automatically have '*.{h,m,mm,c,cpp}' appended.
-  #
   s.source_files = 'Classes', 'Classes/**/*.{h,m}'
   # s.exclude_files = 'Classes/Exclude'
 

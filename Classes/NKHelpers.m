@@ -35,7 +35,7 @@ void NKDrawGradientWithColors(CGContextRef context, NSRect drawingRect, NSColor 
 
 void NKDrawBorderWithColor(CGContextRef context, NSRect drawingRect, NKBorderSide side, CGFloat lineWidth, NSColor *borderColor) {
     CGColorRef color = borderColor.CGColor;
-    CGContextSetFillColorWithColor(context, color);
+    CGContextSetStrokeColorWithColor(context, color);
 
     // Bottom rectangle huh
     CGRect lineRect = drawingRect;
@@ -51,7 +51,10 @@ void NKDrawBorderWithColor(CGContextRef context, NSRect drawingRect, NKBorderSid
         lineRect.origin.x = drawingRect.size.width - lineWidth;
     }
 
-    CGContextFillRect(context, lineRect);
+    lineRect = CGRectInset(lineRect, 0.5, 0.5);
+
+//    CGContextFillRect(context, lineRect);
+    CGContextStrokeRect(context, lineRect);
 }
 
 void NKDrawBorder(CGContextRef context, CGRect drawingRect, NKBorderSide side, CGFloat lineWidth, NSString *colorHex) {

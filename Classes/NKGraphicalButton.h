@@ -13,11 +13,17 @@
 
 @property (assign) NKGraphics *graphics;
 @property (assign) CGSize graphicsSize;
+@property (assign) CGSize graphicsOffset;
 @property (nonatomic, strong) NSColor *color;
 @property (nonatomic, strong) NSColor *highlightColor;
 @property (nonatomic, strong) NSColor *alternateColor;
 @property (nonatomic, strong) NSColor *alternateHighligtColor;
+@property (nonatomic, strong) NSShadow *shadow;
 @property (assign) BOOL isAlternate;
+@property (assign) BOOL isFirstInGroup;
+@property (assign) BOOL isLastInGroup;
+@property (assign) BOOL isBezeled;
+@property (assign) BOOL isSelected; /** Used when bezeled */
 
 @property (readonly) NKGraphicalButtonCell *graphicalCell;
 

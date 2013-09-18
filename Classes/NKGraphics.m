@@ -33,6 +33,15 @@
 }
 
 - (void)drawInFrame:(NSRect)frame color:(NSColor *)color {
+    [self drawInFrame:frame color:color preserveRatio:NO];
+}
+
+- (void)drawInFrame:(NSRect)frame color:(NSColor *)color preserveRatio:(BOOL)shouldPreserveRatio {
+    if (shouldPreserveRatio) {
+        CGFloat ratio = self.size.width / self.size.height;
+        frame.size.height = frame.size.width / ratio;
+    }
+
     NSBezierPath *path = [self fitBezierPathInFrame:frame];
     [color setFill];
     [path fill];
