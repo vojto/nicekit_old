@@ -10,37 +10,39 @@
 
 @interface NKButtonCell ()
 
-@property (strong) NKStyle *style;
-
 @end
 
 @implementation NKButtonCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (id)init {
+    if ((self = [super init])) {
+        [self setup];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.isSelected = NO;
     self.font = [NSFont fontWithName:@"HelveticaNeue-Bold" size:11];
-    self.style = [[NKStyle alloc] initWithFrame:NSZeroRect];
-    self.defaultColors = [NKColorGroup groupWithHexColors:@[@"f8f8f8", @"fff"]];
-    self.activeColors = [NKColorGroup groupWithHexColors:@[@"fff", @"f8f8f8"]];
-    self.disabledColors = [NKColorGroup groupWithHexColors:@[@"f8f8f8", @"fff"]];
-    self.borderRadius = 3.0;
-    self.borderColor = [NKColor colorWithHex:@"cecbce"];
-}
+    self.defaultStyle = [[NKStyle alloc] initWithFrame:NSZeroRect];
+    self.activeStyle = [[NKStyle alloc] initWithFrame:NSZeroRect];
+    self.disabledStyle = [[NKStyle alloc] initWithFrame:NSZeroRect];
+    self.selectedStyle = [[NKStyle alloc] initWithFrame:NSZeroRect];
 
-- (void)setBorderColor:(NKColor *)borderColor {
-    [self.style setBorderColor:borderColor forSide:kNKBorderAll];
-}
+    self.defaultStyle.backgroundColors = [NKColorGroup groupWithHexColors:@[@"f8f8f8", @"fff"]];
+    self.activeStyle.backgroundColors = [NKColorGroup groupWithHexColors:@[@"fff", @"f8f8f8"]];
+    self.disabledStyle.backgroundColors = [NKColorGroup groupWithHexColors:@[@"f8f8f8", @"fff"]];
+    self.selectedStyle.backgroundColors = [NKColorGroup groupWithHexColors:@[@"blue", @"red"]];
 
-- (NKColor *)borderColor {
-    return [self.style borderColorForSide:kNKBorderAll];
-}
-
-- (void)setBorderRadius:(CGFloat)radius {
-    [self.style setBorderRadius:radius];
-}
-
-- (CGFloat)borderRadius {
-    return self.style.borderRadius;
+    self.activeStyle.borderRadius = 0;
+//    [self.activeStyle setBorderColor:[NKColor colorWithHex:@"cecbce"] forSide:kNKBorderAll];
 }
 
 - (BOOL)isOpaque {
@@ -48,20 +50,21 @@
 }
 
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView {
+    NKStyle *style;
 
-    // Set frame
-    self.style.frame = frame;
-
-    // Set color scheme
-    if (!self.isEnabled) {
-        self.style.backgroundColors = self.disabledColors;
+    if (self.isSelected) {
+        style = self.selectedStyle;
+    } else if (!self.isEnabled) {
+        style = self.disabledStyle;
     } else if ([self isHighlighted]) {
-        self.style.backgroundColors = self.activeColors;
+        style = self.activeStyle;
     } else {
-        self.style.backgroundColors = self.activeColors;
+        style = self.defaultStyle;
     }
 
-    [self.style draw];
+    style.frame = frame;
+
+    [style draw];
 }
 
 @end

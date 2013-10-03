@@ -31,7 +31,17 @@
 - (void)addShadow:(CGSize)offset blurRadius:(CGFloat)blurRadius color:(NKColor *)color;
 - (void)addInsetShadow:(CGSize)offset blurRadius:(CGFloat)blurRadius color:(NKColor *)color;
 
+// Font
+// this one isnt't used for drawing, because NKStyle doesn't really draw any text
+// but some other classes may use it do their own drawing of text, and it such
+// cases we want the font style information to be associated with the style.
+// nil by default.
+@property (strong) NSColor *textColor;
+@property (strong) NSShadow *textShadow;
+
 // Drawing
 - (void)draw;
+
+
 
 @end

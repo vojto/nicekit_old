@@ -8,13 +8,16 @@
 
 #import "NKStyle.h"
 #import "NKColorGroup.h"
+#import "NKColor.h"
 
 @interface NKButtonCell : NSButtonCell
 
-@property (strong) NKColorGroup *defaultColors;
-@property (strong) NKColorGroup *activeColors;
-@property (strong) NKColorGroup *disabledColors;
-@property (assign) NKColor *borderColor;
-@property (assign) CGFloat borderRadius;
+@property (assign) BOOL isSetup;
+@property (assign) BOOL isSelected;
+
+@property (strong) NKStyle *defaultStyle;
+@property (strong) NKStyle *activeStyle;
+@property (strong) NKStyle *disabledStyle;
+@property (strong) NKStyle *selectedStyle;
 
 @end

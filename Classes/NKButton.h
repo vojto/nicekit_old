@@ -6,11 +6,10 @@
 //
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface NKButton : NSButton
 
-- (NSColor *)textColor;
-- (void)setTextColor:(NSColor *)textColor;
+@property (assign) BOOL isSelected;
+@property (assign, nonatomic) BOOL isShadowEnabled;
+@property (strong) NSColor *textColor;
 
 @end

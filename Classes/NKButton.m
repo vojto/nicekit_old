@@ -8,42 +8,49 @@
 
 #import "NKButton.h"
 #import "NSColor+Hex.h"
+#import "NKButtonCell.h"
 
 @implementation NKButton
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+@synthesize textColor = _textColor;
+
+- (id)initWithFrame:(NSRect)frameRect {
+    if ((self = [super initWithFrame:frameRect])) {
+        [self setup];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.isShadowEnabled = YES;
+    self.bezelStyle = NSRegularSquareBezelStyle;
     self.font = [NSFont fontWithName:@"HelveticaNeue-Bold" size:11];
-    [self setTextColor:[NSColor colorWithHex:@"666"]];
+    self.textColor = [NSColor colorWithHex:@"666"];
+}
+
++ (Class)cellClass {
+    return [NKButtonCell class];
 }
 
 - (NSColor *)textColor {
-    NSAttributedString *attrTitle = [self attributedTitle];
-    int len = [attrTitle length];
-    NSRange range = NSMakeRange(0, MIN(len, 1)); // take color from first char
-    NSDictionary *attrs = [attrTitle fontAttributesInRange:range];
-    NSColor *textColor = [NSColor controlTextColor];
-    if (attrs) {
-        textColor = [attrs objectForKey:NSForegroundColorAttributeName];
-    }
-    return textColor;
+    return _textColor;
 }
 
 - (void)setTextColor:(NSColor *)textColor {
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc]
-                                            initWithAttributedString:[self attributedTitle]];
-    int len = [attrTitle length];
-    NSRange range = NSMakeRange(0, len);
-    [attrTitle addAttribute:NSForegroundColorAttributeName value:textColor range:range];
+    _textColor = textColor;
+    [self scheduleUpdateAttributes];
+}
 
-    NSShadow *shadow = [[NSShadow alloc] init];
-    [shadow setShadowColor:[NSColor colorWithDeviceWhite:1.0 alpha:1]];
-    [shadow setShadowOffset:NSMakeSize(1.0, -1.1)];
-    [attrTitle addAttribute:NSShadowAttributeName value:shadow range:range];
-    [attrTitle addAttribute:NSBaselineOffsetAttributeName value:@2.5 range:range];
-
-    [attrTitle fixAttributesInRange:range];
-    [self setAttributedTitle:attrTitle];
+- (void)setIsShadowEnabled:(BOOL)isShadowEnabled {
+    _isShadowEnabled = isShadowEnabled;
+    [self scheduleUpdateAttributes];
 }
 
 - (void)setEnabled:(BOOL)flag {
@@ -53,6 +60,54 @@
     } else {
         self.alphaValue = 0.5;
     }
+}
+
+#pragma mark - Updating attributes
+
+- (void)scheduleUpdateAttributes {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(updateAttributes) withObject:nil afterDelay:0];
+}
+
+- (void)updateAttributes {
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                        initWithAttributedString:[self attributedTitle]];
+
+    int len = [title length];
+    NSRange range = NSMakeRange(0, len);
+    if (!self.textColor) {
+        NSAssert(self.textColor != nil, @"no text color");
+    }
+    [title addAttribute:NSForegroundColorAttributeName value:self.textColor range:range];
+
+    // Shadow
+    if (self.isShadowEnabled) {
+        NSShadow *shadow = [[NSShadow alloc] init];
+        [shadow setShadowColor:[NSColor colorWithDeviceWhite:1.0 alpha:1]];
+        [shadow setShadowOffset:NSMakeSize(1.0, -1.1)];
+        [title addAttribute:NSShadowAttributeName value:shadow range:range];
+    } else {
+        [title removeAttribute:NSShadowAttributeName range:range];
+    }
+
+    // [attrTitle addAttribute:NSBaselineOffsetAttributeName value:@2.5 range:range];
+
+    [title fixAttributesInRange:range];
+
+    [self setAttributedTitle:title];
+}
+
+#pragma mark - Selected
+
+- (BOOL)isSelected {
+    NKButtonCell *cell = (NKButtonCell *)self.cell;
+    return cell.isSelected;
+}
+
+- (void)setIsSelected:(BOOL)isSelected {
+    NKButtonCell *cell = (NKButtonCell *)self.cell;
+    cell.isSelected = isSelected;
+    [self setNeedsDisplay:YES];
 }
 
 @end

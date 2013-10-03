@@ -18,3 +18,5 @@ typedef NSString* NKBorderSide;
 #import "NKView.h"
 #import "NKStyle.h"
 #import "NKGraphicalButton.h"
+#import "NKButton.h"
+#import "NKButtonCell.h"

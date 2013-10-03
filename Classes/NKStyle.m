@@ -48,7 +48,11 @@ NSString *const kNKBorderAll = @"all";
 }
 
 - (void)setBorderColor:(NKColor *)color forSide:(NKBorderSide)side {
-    [self.borderColors setObject:color forKey:side];
+    if (color == nil) {
+        [self.borderColors removeObjectForKey:side];
+    } else {
+        [self.borderColors setObject:color forKey:side];
+    }
 }
 
 - (NKColor *)borderColorForSide:(NKBorderSide)side {
@@ -160,10 +164,11 @@ NSString *const kNKBorderAll = @"all";
     CGFloat lineWidth = [self borderWidthFor:side];
     CGRect lineRect = self.frame;
     if ([side isEqualToString:kNKBorderBottom]) {
+        lineRect.origin.y = lineRect.size.height - lineWidth;
         lineRect.size.height = lineWidth;
     } else if ([side isEqualToString:kNKBorderTop]) {
         lineRect.size.height = lineWidth;
-        lineRect.origin.y = drawingRect.size.height - lineWidth;
+        lineRect.origin.y = 0;
     } else if ([side isEqualToString:kNKBorderLeft]) {
         lineRect.size.width = lineWidth;
     } else if ([side isEqualToString:kNKBorderRight]) {
