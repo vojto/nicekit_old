@@ -31,5 +31,6 @@
 @property (assign) BOOL isSelected; /** Used when bezeled */
 
 - (id)initWithGraphics:(Class)graphicsClass;
+- (void)drawBezierPath:(NSBezierPath *)bezierPath withColor:(NSColor *)color shadow:(NSShadow *)shadow;
 
 @end

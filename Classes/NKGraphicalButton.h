@@ -28,5 +28,6 @@
 @property (readonly) NKGraphicalButtonCell *graphicalCell;
 
 - (id)initWithFrame:(NSRect)frameRect graphics:(Class)graphicsClass;
+- (Class)cellClass;
 
 @end

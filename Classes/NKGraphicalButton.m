@@ -12,7 +12,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect {
     if ((self = [super initWithFrame:frameRect])) {
-        self.cell = [[NKGraphicalButtonCell alloc] init];
+        self.cell = [[[self cellClass] alloc] init];
         [self setup];
     }
     return self;
@@ -20,11 +20,25 @@
 
 - (id)initWithFrame:(NSRect)frameRect graphics:(Class)graphicsClass {
     if ((self = [super initWithFrame:frameRect])) {
-        self.cell = [[NKGraphicalButtonCell alloc] initWithGraphics:[graphicsClass class]];
+        self.cell = [[[self cellClass] alloc] initWithGraphics:[graphicsClass class]];
         self.title = @"";
         [self setup];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    // After awakening from nib
+    if ((self = [super initWithCoder:aDecoder])) {
+        self.cell = [[[self cellClass] alloc] init];
+        self.title = @"";
+        [self setup];
+    }
+    return self;
+}
+
+- (Class)cellClass {
+    return [NKGraphicalButtonCell class];
 }
 
 - (void)setup {
@@ -42,6 +56,7 @@
 
 - (void)setGraphics:(NKGraphics *)graphics {
     self.graphicalCell.graphics = graphics;
+    [self setNeedsDisplay];
 }
 
 - (BOOL)isAlternate {

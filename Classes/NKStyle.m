@@ -204,7 +204,7 @@ NSString *const kNKBorderAll = @"all";
 }
 
 - (void)drawInsetShadows {
-    NSArray *shadows = [self.shadows select:^BOOL(NKShadow *shadow) {
+    NSArray *shadows = [self.shadows bk_select:^BOOL(NKShadow *shadow) {
         return shadow.isInset;
     }];
     for (NKShadow *shadow in shadows) {

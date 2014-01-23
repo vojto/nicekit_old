@@ -108,20 +108,27 @@
         [t translateXBy:self.graphicsOffset.width yBy:self.graphicsOffset.height];
         [bezierPath transformUsingAffineTransform:t];
     }
+    
+    NSColor *color;
 
     if (!self.isEnabled) {
-        [self.disabledColor setFill];
+        color = self.disabledColor;
     } else if (self.isHighlighted && self.isAlternate) {
-        [self.alternateHighligtColor setFill];
+        color = self.alternateHighligtColor;
     } else if (self.isHighlighted) {
-        [self.highlightColor setFill];
+        color = self.highlightColor;
     } else if (self.isAlternate) {
-        [self.alternateColor setFill];
+        color = self.alternateColor;
     } else {
-        [self.color setFill];
+        color = self.color;
     }
+    
+    [self drawBezierPath:bezierPath withColor:color shadow:self.shadow];
+}
 
+- (void)drawBezierPath:(NSBezierPath *)bezierPath withColor:(NSColor *)color shadow:(NSShadow *)shadow {
     [self.shadow set];
+    [color setFill];
     [bezierPath fill];
 }
 
