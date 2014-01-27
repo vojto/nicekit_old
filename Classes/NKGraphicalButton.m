@@ -55,8 +55,10 @@
 }
 
 - (void)setGraphics:(NKGraphics *)graphics {
-    self.graphicalCell.graphics = graphics;
-    [self setNeedsDisplay];
+    if (self.graphicalCell.graphics != graphics) {
+        self.graphicalCell.graphics = graphics;
+        [self setNeedsDisplay];
+    }
 }
 
 - (BOOL)isAlternate {

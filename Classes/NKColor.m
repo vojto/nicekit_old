@@ -44,4 +44,18 @@
     return self.color.CGColor;
 }
 
+#pragma mark - Modifying colors
+
++ (NSColor *)adjustBrightness:(CGFloat)brightnessChange saturation:(CGFloat)saturationChange ofColor:(NSColor *)color {
+    CGFloat hue, saturation, brightness, alpha;
+    [color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+    brightness += brightnessChange;
+    saturation += saturationChange;
+    return [NSColor colorWithCalibratedHue:hue saturation:saturation brightness:brightness alpha:alpha];
+}
+
+- (NSColor *)colorByAdjustingBrightness:(CGFloat)brightnessChange saturation:(CGFloat)saturationChange {
+    return [NKColor adjustBrightness:brightnessChange saturation:saturationChange ofColor:self.color];
+}
+
 @end

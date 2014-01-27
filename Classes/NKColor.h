@@ -21,4 +21,7 @@
 
 - (CGColorRef)CGColor;
 
++ (NSColor *)adjustBrightness:(CGFloat)brightnessChange saturation:(CGFloat)saturationChange ofColor:(NSColor *)color;
+- (NSColor *)colorByAdjustingBrightness:(CGFloat)brightnessChange saturation:(CGFloat)saturationChange;
+
 @end
