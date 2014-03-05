@@ -20,3 +20,4 @@ typedef NSString* NKBorderSide;
 #import "NKGraphicalButton.h"
 #import "NKButton.h"
 #import "NKButtonCell.h"
+#import "NSView+NSView_NKAdditions.h"

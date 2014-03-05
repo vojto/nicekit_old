@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.author       = { "Vojtech Rinik" => "vojto@rinik.net" }
   s.source       = { :git => "git@rinik.net:vojto/nicekit.git" }
   s.platform = :osx
-  s.source_files = 'Classes', 'Classes/**/*.{h,m}'
+  s.source_files = 'Classes', 'Classes/**/*.{h,m}', '*.{h,m}'
   # s.exclude_files = 'Classes/Exclude'
 
   # A list of file patterns which select the header files that should be
