@@ -157,6 +157,10 @@
     self.graphicalCell.alternateHighligtColor = alternateHighligtColor;
 }
 
+- (NKStyle *)style {
+    return self.graphicalCell.style;
+}
+
 #pragma mark - Title
 
 - (void)setTitle:(NSString *)aString {

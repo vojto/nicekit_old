@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NKGraphicalButtonCell.h"
+#import "NKStyle.h"
 
 @interface NKGraphicalButton : NSButton
 
@@ -29,5 +30,6 @@
 
 - (id)initWithFrame:(NSRect)frameRect graphics:(Class)graphicsClass;
 - (Class)cellClass;
+- (NKStyle *)style;
 
 @end
