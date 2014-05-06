@@ -149,6 +149,14 @@
     self.graphicalCell.alternateColor = alternateColor;
 }
 
+- (NSColor *)disabledColor {
+    return self.graphicalCell.disabledColor;
+}
+
+- (void)setDisabledColor:(NSColor *)disabledColor {
+    self.graphicalCell.disabledColor = disabledColor;
+}
+
 - (NSColor *)alternateHighligtColor {
     return self.graphicalCell.alternateHighligtColor;
 }
@@ -159,6 +167,14 @@
 
 - (NKStyle *)style {
     return self.graphicalCell.style;
+}
+
+- (NKStyle *)highlightStyle {
+    return self.graphicalCell.highlightStyle;
+}
+
+- (NKStyle *)alternateStyle {
+    return self.graphicalCell.alternateStyle;
 }
 
 #pragma mark - Title

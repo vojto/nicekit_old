@@ -17,6 +17,7 @@
 @property (assign) CGSize graphicsOffset;
 @property (nonatomic, strong) NSColor *color;
 @property (nonatomic, strong) NSColor *highlightColor;
+@property (nonatomic, strong) NSColor *disabledColor;
 @property (nonatomic, strong) NSColor *alternateColor;
 @property (nonatomic, strong) NSColor *alternateHighligtColor;
 @property (nonatomic, strong) NSShadow *shadow;
@@ -31,5 +32,7 @@
 - (id)initWithFrame:(NSRect)frameRect graphics:(Class)graphicsClass;
 - (Class)cellClass;
 - (NKStyle *)style;
+- (NKStyle *)highlightStyle;
+- (NKStyle *)alternateStyle;
 
 @end

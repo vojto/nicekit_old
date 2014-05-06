@@ -43,6 +43,8 @@
     self.isSelected = NO;
     
     self.style = [[NKStyle alloc] initWithFrame:CGRectZero];
+    self.highlightStyle = [[NKStyle alloc] initWithFrame:CGRectZero];
+    self.alternateStyle = [[NKStyle alloc] initWithFrame:CGRectZero];
 
     self.shadow = [[NSShadow alloc] init];
     self.shadow.shadowOffset = CGSizeMake(0, -1.0);
@@ -54,6 +56,8 @@
 
     // Button style
     self.style.frame = NSInsetRect(frame, 0.0, 1.0);
+    self.highlightStyle.frame = NSInsetRect(frame, 0.0, 1.0);
+    self.alternateStyle.frame = NSInsetRect(frame, 0.0, 1.0);
 
     if (self.isBezeled) {
         if (self.isHighlighted) {
@@ -91,7 +95,14 @@
         [self.style setBorderRadius:0.0 forSide:kNKBorderLeft];
         [self.style setBorderRadius:0.0 forSide:kNKBorderTop];
     }
-    [self.style draw];
+    
+    if (self.isHighlighted) {
+        [self.highlightStyle draw];
+    } else if (self.isAlternate) {
+        [self.alternateStyle draw];
+    } else {
+        [self.style draw];
+    }
 
     // Button graphics
 

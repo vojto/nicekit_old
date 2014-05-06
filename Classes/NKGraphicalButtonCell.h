@@ -16,6 +16,8 @@
 @property (assign) CGSize graphicsOffset;
 
 @property (strong) NKStyle *style;
+@property (strong) NKStyle *highlightStyle;
+@property (strong) NKStyle *alternateStyle;
 @property (strong) NSShadow *shadow;
 
 @property (strong) NSColor *color;
