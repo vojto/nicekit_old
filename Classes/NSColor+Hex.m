@@ -24,6 +24,14 @@ static NSMutableDictionary *colorCache() {
     if (existing) {
         return existing;
     }
+    
+    CGFloat opacity = 1;
+    NSArray *comps = [hexColor componentsSeparatedByString:@","];
+    if (comps.count == 2) {
+        hexColor = comps[0];
+        NSString *opacityString = comps[1];
+        opacity = [opacityString floatValue];
+    }
 
     if ([hexColor isEqualToString:@"red"]) {
         return [NSColor redColor];
@@ -84,7 +92,7 @@ static NSMutableDictionary *colorCache() {
         NSColor *color = [NSColor colorWithCalibratedRed:[[rgb objectAtIndex:0] floatValue]
                                                    green:[[rgb objectAtIndex:1] floatValue]
                                                     blue:[[rgb objectAtIndex:2] floatValue]
-                                                   alpha:1];
+                                                   alpha:opacity];
         [cache setObject:color forKey:hexColor];
 
         return color;
