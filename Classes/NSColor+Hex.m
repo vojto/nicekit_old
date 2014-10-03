@@ -98,10 +98,7 @@ static NSMutableDictionary *colorCache() {
         return color;
     }
     else {
-        NSException* invalidHexException = [NSException exceptionWithName:@"InvalidHexException"
-                                                                   reason:@"Hex color not three or six characters excluding hash"                                    
-                                                                 userInfo:nil];
-        @throw invalidHexException;
+        NSLog(@"Hex color invalid: %@", hexColor);
         
     }
     
